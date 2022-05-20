@@ -6,4 +6,4 @@ For those who are unaware, poaching is the act of actively seeking to "steal" me
 ### How many users are currently in the database?
 Luckily for you, the initial release of this API contains just over 7,000 users and associated trackers!
 ### How can you begin contributing to and benefitting from this API?
-In order to get an access token, you must contact myself through Discord (TannerBoBanner#1300 [198284674131296257])
+In order to get an access token, you must contact myself through Discord (TannerBoBanner#1300, id: `198284674131296257`)
