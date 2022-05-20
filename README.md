@@ -46,7 +46,6 @@ print(response.json())
 
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
 ```
-##### Errors
 When a user could not be found in a GET request, `{"error":"no_user"}` will be returned.
 If the input data is improperly formatted in a POST request, `{"error":"parse_error"}` will be returned.
 If the token is not valid, `{"error":"access_denied"}` will be returned.
