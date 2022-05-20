@@ -38,8 +38,8 @@ trackers   = [
 ]
 
 response   = requests.post(main_url.format(token=token), data = {
-    "discord_id" = discord_id,
-    "trackers"   = trackers
+    "discord_id" : discord_id,
+    "trackers"   : trackers
 })
 
 print(response.json())
