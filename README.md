@@ -53,18 +53,35 @@ If the token is not valid, `{"error":"access_denied"}` will be returned.
 ### How to begin implementing this into your code
 The below is a basic python example that will hopefully give you some insight into how you might implement this into your own league. Of course, this could be adapted to many different languages if needed (namely `javascript`/`typescript`)
 ```py
-user_submitted_trackers = ["https://rocketleague.tracker.network/rocket-league/profile/steam/76561198161985105/overview"]
+import requests, re
 
-for tracker in 
+user_submitted_trackers      = ["https://rocketleague.tracker.network/rocket-league/profile/steam/76561198161985105/overview"]
+user_submitted_tracker_pairs = []
+for tracker in user_submitted_trackers:
+    # format the tracker as [platform, id] and append to user_submitted_tracker_pairs
+    user_submitted_tracker_pairs.append(
+        re.sub(
+            "https:\/\/rocketleague.tracker.network\/rocket-league\/profile\/|\/overview.*|\/mmr.*|\/performance.*",
+            "", 
+            tracker
+        ).split("/")
+    )
 
+# Calculate their league rating with just the submitted trackers here
 
+# Add submitted trackers to database, then get response trackers
+main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}"
+token      = "YOUR_TOKEN"
+discord_id = 198284674131296257
+response   = requests.post(main_url.format(token=token), data = {
+    "discord_id" : discord_id,
+    "trackers"   : user_submitted_tracker_pairs
+})
+historical_trackers = response.json()
 
-
-
-
-
-
-
-
-
-
+# Calculate their league rating with all historical trackers (which now
+# includes the submitted trackers) and see if there is a major difference
+# in their rating, and do whatever is wished with that information (e.g. 
+# give them a suspension upon registration due to ommitted trackers that
+# would have significantly impacted their rating).
+```
