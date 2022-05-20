@@ -9,19 +9,62 @@ Luckily for you, the initial release of this API contains just over 7,000 users 
 In order to get an access token, you must contact myself through Discord (`TannerBoBanner#1300`, `198284674131296257`) and send me an invite to your league. The size of your league is completely irrelevent, as this API is meant to help as many people as possible.
 ### Documentation
 Here is the main API url: `https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec`
-In order to acquire a user's tracker, a GET request must be made, and the `token` and `discord_id` url query parameters must be passed. Below is an example request using python:
+
+In order to acquire a user's tracker, a GET request must be made, and the `token` and `discord_id` url query parameters must be passed. Below is an example GET request using python:
 ```py
 import requests
 
-main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec"
+main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}&discord_id={discord_id}"
 token      = "YOUR_TOKEN"
 discord_id = 198284674131296257
 
-response   = requests.get(f"{main_url}?token={token}&discord_id={discord_id}")
+response   = requests.get(main_url.format(token=token, discord_id=discord_id)
 
 print(response.json())
 
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
 ```
+
+In order to add new trackers to the database, a POST request must be made, and the `token` url query parameter must be passed, as well as a payload that is correctly formatted. Note, when making the POST request, all stored trackers of the user are also returned (so a POST and GET request don't both have to be made). Below is an example POST request using python:
+```py
+import requests
+
+main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}"
+token      = "YOUR_TOKEN"
+discord_id = 198284674131296257
+trackers   = [
+    ["steam", "76561198161985105"],
+    ["epic", "tanrbobanr"]
+]
+
+response   = requests.post(main_url.format(token=token), data = {
+    "discord_id" = discord_id,
+    "trackers"   = trackers
+})
+
+print(response.json())
+
+>>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
+```
+##### Errors
+When a user could not be found in a GET request, `{"error":"no_user"}` will be returned.
+If the input data is improperly formatted in a POST request, `{"error":"parse_error"}` will be returned.
+If the token is not valid, `{"error":"access_denied"}` will be returned.
 ### How to begin implementing this into your code
-The below is pseudo-code that will hopefully give you some insight into how you might implement this into your own league.
+The below is a basic python example that will hopefully give you some insight into how you might implement this into your own league. Of course, this could be adapted to many different languages if needed (namely `javascript`/`typescript`)
+```py
+user_submitted_trackers = ["https://rocketleague.tracker.network/rocket-league/profile/steam/76561198161985105/overview"]
+
+for tracker in 
+
+
+
+
+
+
+
+
+
+
+
+
