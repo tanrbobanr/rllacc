@@ -10,19 +10,25 @@ In order to get an access token, you must contact myself through Discord (`Tanne
 ### Documentation
 Here is the main API url: `https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec`
 
-In order to acquire a user's tracker, a GET request must be made, and the `token` and `discord_id` url query parameters must be passed. Below is an example GET request using python:
+In order to acquire a user's tracker, a GET request must be made. You can use the `discord_id` if you want to find trackers for the specified Discord ID. If you want to search with a platform/id by sending the `platform` and `id` url query parameters. In both cases, the `token` url query parameters must be passed. Below is an example GET request using python:
 ```py
 import requests
 
-main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}&discord_id={discord_id}"
+main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec"
 token      = "YOUR_TOKEN"
+
+# Use Discord ID
 discord_id = 198284674131296257
-
-response   = requests.get(main_url.format(token=token, discord_id=discord_id)
-
+response   = requests.get(f"{main_url}?token={token}&discord_id={discord_id}")
 print(response.json())
-
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
+
+# Use Platform/id
+platform = "epic"
+id       = "tanrbobanr"
+response = requests.get(f"{main_url}?token={token}&platform={platform}&id={id}")
+print(response.json())
+>>> {'198284674131296257': [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]}
 ```
 
 In order to add new trackers to the database, a POST request must be made, and the `token` url query parameter must be passed, as well as a payload that is correctly formatted. Note, when making the POST request, all stored trackers of the user are also returned (so a POST and GET request don't both have to be made). Below is an example POST request using python:
