@@ -72,10 +72,13 @@ for tracker in user_submitted_trackers:
 main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}"
 token      = "YOUR_TOKEN"
 discord_id = 198284674131296257
-response   = requests.post(main_url.format(token=token), data = {
+
+data = json.dumps({
     "discord_id" : discord_id,
     "trackers"   : user_submitted_tracker_pairs
-})
+}, separators=[",",":"])
+
+response   = requests.post(main_url.format(token=token), data=data)
 historical_trackers = response.json()
 
 # Calculate their league rating with all historical trackers (which now
