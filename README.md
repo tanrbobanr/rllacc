@@ -44,7 +44,7 @@ trackers   = [
 ]
 
 response   = requests.post(main_url.format(token=token), data = json.dumps({
-    "discord_id" : discord_id,
+    "discord_id" : str(discord_id),
     "trackers"   : trackers
 }, separators=[",",":"]))
 
@@ -68,7 +68,7 @@ class RLLACC:
             return requests.get(url).json()
     def add(discord_id: int, trackers: List[Tuple[Literal["epic","steam","xbl","psn","switch"], str]]) -> List[List[str]] | dict:
         url=f"{Utils.RLLACC.url}?token={Utils.RLLACC.token}"
-        return requests.post(url, data=json.dumps({"discord_id":discord_id,"trackers":trackers}, separators=[",",":"]))
+        return requests.post(url, data=json.dumps({"discord_id":str(discord_id),"trackers":trackers}, separators=[",",":"]))
 
 print(RLLACC.get.by_discord_id(76561198161985105)
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
