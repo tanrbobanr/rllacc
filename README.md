@@ -43,14 +43,39 @@ trackers   = [
     ["epic", "tanrbobanr"]
 ]
 
-response   = requests.post(main_url.format(token=token), data = {
+response   = requests.post(main_url.format(token=token), data = json.dumps({
     "discord_id" : discord_id,
     "trackers"   : trackers
-})
+}, separators=[",",":"]))
 
 print(response.json())
 
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
+```
+Below is a simple helper class to make acquiring and contributing to the API easier (it is written in Python, but of course could be adapted to many different languages):
+```py
+import requests, json
+
+class RLLACC:
+    token="YOUR_TOKEN"
+    url="https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec"
+    class get:
+        def by_discord_id(discord_id: int) -> List[List[str]] | dict:
+            url=f"{Utils.RLLACC.url}?token={Utils.RLLACC.token}&discord_id={discord_id}"
+            return requests.get(url).json()
+        def by_platform_and_id(platform: Literal["epic","steam","xbl","psn","switch"], id: str) -> List[List[str]] | dict:
+            url=f"{Utils.RLLACC.url}?token={Utils.RLLACC.token}&platform={platform}&id={id}"
+            return requests.get(url).json()
+    def add(discord_id: int, trackers: List[Tuple[Literal["epic","steam","xbl","psn","switch"], str]]) -> List[List[str]] | dict:
+        url=f"{Utils.RLLACC.url}?token={Utils.RLLACC.token}"
+        return requests.post(url, data=json.dumps({"discord_id":discord_id,"trackers":trackers}, separators=[",",":"]))
+
+print(RLLACC.get.by_discord_id(76561198161985105)
+>>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
+print(RLLACC.get.by_platform_and_id("epic", "tanrbobanr")
+>>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]
+print(RLLACC.add(76561198161985105, [["epic", "my_super_duper_tracker"]]
+>>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath'], ['epic', 'my_super_duper_tracker']]
 ```
 When a user could not be found in a GET request, `{"error":"no_user"}` will be returned.
 If the input data is improperly formatted in a POST request, `{"error":"parse_error"}` will be returned.
