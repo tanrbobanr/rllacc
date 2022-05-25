@@ -33,7 +33,7 @@ print(response.json())
 
 In order to add new trackers to the database, a POST request must be made, and the `token` url query parameter must be passed, as well as a payload that is correctly formatted. Note, when making the POST request, all stored trackers of the user are also returned (so a POST and GET request don't both have to be made). Below is an example POST request using python:
 ```py
-import requests
+import requests, json
 
 main_url   = "https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec?token={token}"
 token      = "YOUR_TOKEN"
