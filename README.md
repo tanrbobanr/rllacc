@@ -121,3 +121,6 @@ historical_trackers = response.json()
 # give them a suspension upon registration due to ommitted trackers that
 # would have significantly impacted their rating).
 ```
+### Current Token Holders
+`Polaris`
+`Rapid Fire Esports`
