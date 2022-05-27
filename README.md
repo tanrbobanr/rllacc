@@ -77,9 +77,12 @@ print(RLLACC.get.by_platform_and_id("epic", "tanrbobanr")
 print(RLLACC.add(76561198161985105, [["epic", "my_super_duper_tracker"]]
 >>> [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath'], ['epic', 'my_super_duper_tracker']]
 ```
+### Errors
 When a user could not be found in a GET request, `{"error":"no_user"}` will be returned.
 If the input data is improperly formatted in a POST request, `{"error":"parse_error"}` will be returned.
 If the token is not valid, `{"error":"access_denied"}` will be returned.
+### Platforms
+The `platform`, either when GETting or POSTing, may be `steam`, `xbl`, `psn`, `epic`, `epic_id`, or `switch`.
 ### How to begin implementing this into your code
 The below is a basic python example that will hopefully give you some insight into how you might implement this into your own league. Of course, this could be adapted to many different languages if needed (namely `javascript`/`typescript`)
 ```py
