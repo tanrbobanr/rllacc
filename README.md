@@ -13,7 +13,7 @@ Here is the main API url: `https://script.google.com/macros/s/AKfycby0Vu4XNFD4pS
 NOTE: The account identifier is automatically set to lowercase and its URI components decoded when added to the database. When retreiving, you should encode the URI components before putting it into a URL. In python, this would look something like:
 ```py
 import urllib.parse
-rllib.parse.quote(...)
+urllib.parse.quote(...)
 ```
 And in JavaScript, it would look something like:
 ```js
