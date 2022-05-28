@@ -10,6 +10,16 @@ In order to get an access token, you must contact myself through Discord (`Tanne
 ### Documentation
 Here is the main API url: `https://script.google.com/macros/s/AKfycby0Vu4XNFD4pSsd5rR29LiLcI5r5nC8GwFed3aF3Ca5Q-FibNxiETcE0iLReCx8P2OsMA/exec`
 
+NOTE: The account identifier is automatically set to lowercase and its URI components decoded when added to the database. When retreiving, you should encode the URI components before putting it into a URL. In python, this would look something like:
+```py
+import urllib.parse
+rllib.parse.quote(...)
+```
+And in JavaScript, it would look something like:
+```js
+encodeURIComponent(...)
+```
+
 In order to acquire a user's tracker, a GET request must be made. You can use the `discord_id` if you want to find trackers for the specified Discord ID. If you want to search with a platform/id by sending the `platform` and `id` url query parameters. In both cases, the `token` url query parameters must be passed. Below is an example GET request using python:
 ```py
 import requests
