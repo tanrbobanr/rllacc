@@ -41,7 +41,7 @@ print(response.json())
 >>> {'198284674131296257': [['steam', '76561198161985105'], ['epic', 'tanner%20be%20stewin'], ['epic', 'tanrbobanr'], ['epic', '2Fath']]}
 ```
 
-In order to add new trackers to the database, a POST request must be made, and the `token` url query parameter must be passed, as well as a payload that is correctly formatted. Note, when making the POST request, all stored trackers of the user are also returned (so a POST and GET request don't both have to be made). Below is an example POST request using python:
+In order to add new trackers to the database, a POST request must be made, and the `token` url query parameter must be passed, as well as a payload that is correctly formatted. Note, when making the POST request, all stored trackers of the user are also returned (so a POST and GET request don't both have to be made). Note that the `payload` (either `data` in Python, or `payload` in headers) must be `stringified json`. Below is an example POST request using python:
 ```py
 import requests, json
 
