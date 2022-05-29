@@ -19,6 +19,7 @@ And in JavaScript, it would look something like:
 ```js
 encodeURIComponent(...)
 ```
+NOTE: In `ALL` cases, we recommend you use some form of error handling (e.g. `try/except` or `try/catch`) when using this API just in case it gives you an unwanted/unhandled response, so your code's functionality is not dependent on the API.
 
 In order to acquire a user's tracker, a GET request must be made. You can use the `discord_id` if you want to find trackers for the specified Discord ID. If you want to search with a platform/id, you can do so by sending the `platform` and `id` url query parameters. In both cases, the `token` url query parameters must be passed. Below is an example GET request using python:
 ```py
