@@ -133,5 +133,4 @@ historical_trackers = response.json()
 # would have significantly impacted their rating).
 ```
 ### Current Token Holders
-`Polaris`
 `Rapid Fire Esports`
